@@ -1,10 +1,5 @@
 Instructions. Use the following code:
 
-String stopFile = "stop.txt";
-String mp3File = "mp3.txt"
-String progressFile = "prog.txt"	
-String convertFile = "rawFile.pcm";
-
 {{{
 Intent intent = new Intent("org.freemp3droid.CONVERT");
 intent.putExtra("convertFile", "rawFile.pcm");

@@ -6,7 +6,7 @@ intent.putExtra("convertFile", "rawFile.pcm");
 intent.putExtra("progressFile","prog.txt");
 intent.putExtra("mp3File", "convertToThisFile.mp3");	
 intent.putExtra("stopFile", "stop.txt");
-intent.putExtra("sampleRate",441000);
+intent.putExtra("sampleRate",44100);
 intent.putExtra("bitRate",192);
 
 Main.this.startActivity(intent);

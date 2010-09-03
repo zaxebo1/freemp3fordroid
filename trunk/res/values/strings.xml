@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeMP3Droid</string>
+    <string name="convdir">FreeMP3Droid</string> 
+    <string name="conversion_ready">MP3 is ready</string> 
+    <string name="converting">MP3 is converting</string> 
+    <string name="convert_later">Convert later</string>  
+	<string name="prog_msg">MP3 is now converting.</string>
+	<string name="prog_title">Converting.</string>
+</resources>

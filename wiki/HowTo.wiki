@@ -8,23 +8,20 @@ intent.putExtra("mp3File", "convertToThisFile.mp3");
 intent.putExtra("stopFile", "stop.txt");
 intent.putExtra("sampleRate",441000);
 intent.putExtra("bitRate",192);
-//need to touch the file
-try {
-  FileOutputStream ofo = new FileOutputStream("stop.txt");
-  ofo.write("0".getBytes());
-  ofo.flush();
-  ofo.close();
-} catch (IOException e) {
-e.printStackTrace();
-} 
+
 Main.this.startActivity(intent);
 }}}
 
 
 Explanation of files:
+
 convertFile: the raw pcm or wav data to convert to MP3
-progressFile: a file that the library updates constantly to report how many bytes have been processed. When this value equals that of the convertFile.length then conversion is complete
+
+progressFile: a file that the library updates constantly to report how many bytes have been 
+processed. When this value equals that of the convertFile.length then conversion is complete
+
 mp3File: the desired file to write the mp3 to
+
 stopFile:if you want to prematurely cancel conversion, then write "1" to this file.
 
 Enjoy !

@@ -34,7 +34,7 @@ public class Main extends Activity {
 			String stopFile = getIntent().getExtras().getString("stopFile");
 			//need to touch the file. 1 means stop, anything else means go.
 			try {
-				FileOutputStream ofo = new FileOutputStream("stop.txt");
+				FileOutputStream ofo = new FileOutputStream(stopFile);
 				ofo.write("0".getBytes());
 				ofo.flush();
 				ofo.close();

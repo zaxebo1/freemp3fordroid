@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TextView
+		android:id="@+id/convert_file_display"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<TextView
+			android:text="Sample Rate. Hz"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		<Spinner
+			android:id="@+id/rec_spin"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<TextView
+			android:text="Compression Quality"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		<Spinner
+			android:id="@+id/compress_spin"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+	<Button
+		android:id="@+id/convert_go_button"
+		android:text="Convert"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+</LinearLayout>

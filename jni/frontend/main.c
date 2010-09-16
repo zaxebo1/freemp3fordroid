@@ -83,6 +83,10 @@ char   *strchr(), *strrchr();
 #include <android/log.h> 
 #define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, "libnav", __VA_ARGS__) 
 
+void
+Java_org_freemp3droid_Converter_kill(JNIEnv*  env,jobject  thiz){
+  userCancel=1;
+}
 static FILE *
 init_files(lame_global_flags * gf, char *inPath, char *outPath, int *enc_delay, int *enc_padding)
 {
@@ -243,9 +247,9 @@ lame_encoder(lame_global_flags * gf, FILE * outf, int nogap, char *inPath, char 
         fprintf(progFile,"%d",totBytes);
 
         if (iread >= 0) {
-            char buf[50];
-            sprintf(buf,"%i",iread);
-            LOGV(buf); 
+            //char buf[50];
+            //sprintf(buf,"%i",iread);
+            //LOGV(buf); 
             /* encode */
             imp3 = lame_encode_buffer_int(gf, Buffer[0], Buffer[1], iread,
                                           mp3buffer, sizeof(mp3buffer));
@@ -266,14 +270,6 @@ lame_encoder(lame_global_flags * gf, FILE * outf, int nogap, char *inPath, char 
         }
         if (flush_write == 1) {
             fflush(outf);
-        }
-        //read from a global file to see if user has stopped conversion
-        char stopBuf[5];
-        rewind(stopFile);
-        fread(stopBuf,1,5,stopFile);
-        LOGV(stopBuf);
-        if(0 == strcmp("1",stopBuf)){
-          userCancel = 1;
         }
     } while (iread > 0 && userCancel != 1);
 
@@ -403,7 +399,7 @@ JNI_OnLoad(JavaVM *vm, void *reserved)
 
 //this is an attempt to convert raw data frame by frame, if anyone can find a solution, send a patch.
 void
-Java_org_freemp3droid_MP3Service_convertMP3Realtime(JNIEnv*  env,jobject  thiz,jstring aaa,jstring outF, jshortArray inBytes,
+Java_org_freemp3droid_Converter_convertMP3Realtime(JNIEnv*  env,jobject  thiz,jstring aaa,jstring outF, jshortArray inBytes,
           int sampleRate, int bitRate){
 
   userCancel=0;
@@ -455,8 +451,8 @@ Java_org_freemp3droid_MP3Service_convertMP3Realtime(JNIEnv*  env,jobject  thiz,j
 }
 
 void
-Java_org_freemp3droid_MP3Service_convertMP3(JNIEnv*  env,jobject  thiz,jstring inFile ,jstring outFile, 
-          jstring progF, jstring stopF, int sampleRate, int bitRate){
+Java_org_freemp3droid_Converter_convertMP3(JNIEnv*  env,jobject  thiz,jstring inFile ,jstring outFile, 
+          jstring progF,  int sampleRate, int bitRate){
 
   userCancel=0;
   totBytes=0;
@@ -470,10 +466,6 @@ Java_org_freemp3droid_MP3Service_convertMP3(JNIEnv*  env,jobject  thiz,jstring i
   const char* outfs;
   outfs = (*env)->GetStringUTFChars(env, outFile, NULL);
 
-  const char* stopfs;
-  stopfs = (*env)->GetStringUTFChars(env, stopF, NULL);
-  stopFile = fopen(stopfs,"r");
-  
   const char* infs;
   infs = (*env)->GetStringUTFChars(env,inFile, NULL);
   int     enc_delay = -1;
@@ -483,7 +475,7 @@ Java_org_freemp3droid_MP3Service_convertMP3(JNIEnv*  env,jobject  thiz,jstring i
   progfs = (*env)->GetStringUTFChars(env, progF, NULL);
   //set the global progress file variable to be accessed in lame_encoder()
   progFile = fopen(progfs,"w");
- 
   FILE *outf = init_files(gf,infs,outfs,&enc_delay,&enc_padding);
   lame_encoder(gf, outf,0 ,infs ,outfs );
 }
+

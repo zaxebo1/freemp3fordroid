@@ -29,7 +29,6 @@ public class Util {
 	{
 		File filesDir = getStorageDir(ctx);
 		String filesDirPath = filesDir.getAbsolutePath();
-		filesDir.mkdirs();
 		String origFile = orig.substring(orig.lastIndexOf("/"));
 		origFile = origFile.substring(0, origFile.lastIndexOf("."));
 		String filename = filesDirPath + "/" + origFile + ".mp3";
@@ -38,7 +37,12 @@ public class Util {
 	public static File getStorageDir(Context ctx) {
 		String filesDirPath = Environment.getExternalStorageDirectory().toString() +
 		"/" + ctx.getResources().getString(R.string.convdir);
-		return new File(filesDirPath);
+		
+		File ret = new File(filesDirPath);
+		if(!ret.exists()) {
+			ret.mkdirs();
+		}
+		return ret;
 	}
 	
 	public static ArrayList<File> listFiles(Context ctx) {
